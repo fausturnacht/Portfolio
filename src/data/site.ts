@@ -3,14 +3,26 @@
  * Edit this file (and nothing else) to make the site yours.
  */
 
+/**
+ * Canonical site URL. On Vercel this resolves automatically from the
+ * deployment environment, so you never have to edit it. Set
+ * NEXT_PUBLIC_SITE_URL only if you later attach a custom domain.
+ */
+const envUrl = (v: string | undefined) => v?.trim() || undefined;
+
+const siteUrl =
+  envUrl(process.env.NEXT_PUBLIC_SITE_URL) ??
+  (envUrl(process.env.VERCEL_PROJECT_PRODUCTION_URL)
+    ? `https://${envUrl(process.env.VERCEL_PROJECT_PRODUCTION_URL)}`
+    : "http://localhost:3000");
+
 export const siteConfig = {
   name: "Felix Luis A. Faustino",
   role: "Computer Science Student",
   tagline: "I build full-stack web apps that people actually use.",
   description:
     "BS Computer Science student at New Era University, building full-stack products with React, Tailwind and Supabase.",
-  // TODO: replace with your real domain — feeds canonical URLs, sitemap, robots, OG.
-  url: "https://your-domain.com",
+  url: siteUrl,
   locale: "en_US",
   email: "felixluis.faustino@neu.edu.ph",
   phone: "+63 960-415-8396",
