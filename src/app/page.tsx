@@ -1,6 +1,6 @@
 import { Footer, Header } from "@/components/chrome";
 import { Hero } from "@/components/hero";
-import { About, Contact, Experience } from "@/components/sections";
+import { About, Contact, Education } from "@/components/sections";
 import { Work } from "@/components/work";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <Work />
-        <Experience />
+        <Education />
         <About />
         <Contact />
       </main>

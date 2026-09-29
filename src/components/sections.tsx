@@ -1,9 +1,9 @@
 import { Section } from "./section";
-import { experience, skills, siteConfig } from "@/data/site";
+import { certifications, experience, skills, siteConfig } from "@/data/site";
 
-export function Experience() {
+export function Education() {
   return (
-    <Section id="experience" title="Experience">
+    <Section id="experience" title="Education">
       <ol className="flex flex-col gap-10">
         {experience.map((role) => (
           <li key={`${role.company}-${role.period}`}>
@@ -35,6 +35,39 @@ export function Experience() {
           </li>
         ))}
       </ol>
+
+      <h3 className="mt-12 mb-6 font-mono text-xs tracking-[0.08em] text-subtle uppercase">
+        Certifications
+      </h3>
+      <ul className="flex flex-col gap-2">
+        {certifications.map((cert) => (
+          <li
+            key={cert.name}
+            className="flex flex-wrap items-baseline justify-between gap-x-4 rounded-md bg-surface px-4 py-3 ring-card"
+          >
+            <div>
+              <p className="text-sm font-medium">
+                {cert.href ? (
+                  <a
+                    href={cert.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="transition-colors hover:underline"
+                  >
+                    {cert.name}
+                  </a>
+                ) : (
+                  cert.name
+                )}
+              </p>
+              <p className="mt-0.5 text-xs text-subtle">{cert.issuer}</p>
+            </div>
+            <span className="font-mono text-xs whitespace-nowrap text-subtle">
+              {cert.date}
+            </span>
+          </li>
+        ))}
+      </ul>
     </Section>
   );
 }
@@ -44,9 +77,14 @@ export function About() {
     <Section id="about" title="About">
       <div className="flex flex-col gap-8 text-sm leading-relaxed text-muted">
         <p className="max-w-2xl text-base">
-          Write two or three sentences here. What you work on, what you care about,
-          what you are looking for next. This is the paragraph people actually read
-          — keep it specific and skip the adjective soup.
+          I&apos;m a Computer Science student at New Era University in Quezon
+          City, working mostly on full-stack web applications — React and Tailwind
+          on the front, Supabase and REST APIs underneath. My coursework leans into
+          data analytics and machine learning, and most of my projects ship as
+          working products rather than class exercises: role-based access control,
+          OCR pipelines, prerequisite mapping, and the unglamorous CRUD that holds
+          it all together. I&apos;m currently open to internships and entry-level
+          engineering roles.
         </p>
         <dl className="grid gap-6 sm:grid-cols-2">
           {skills.map((group) => (
@@ -77,8 +115,8 @@ export function Contact() {
     <Section id="contact" title="Contact">
       <div className="rounded-lg bg-surface p-8 ring-card">
         <p className="text-base text-muted">
-          Open to work, collaborations, and interesting problems. Email is the
-          fastest way to reach me.
+          Open to internships, collaborations, and interesting problems. Email is
+          the fastest way to reach me.
         </p>
         <a
           href={`mailto:${siteConfig.email}`}
@@ -86,6 +124,9 @@ export function Contact() {
         >
           {siteConfig.email}
         </a>
+        <p className="mt-3 text-sm text-subtle">
+          {siteConfig.phone} · {siteConfig.location}
+        </p>
       </div>
     </Section>
   );

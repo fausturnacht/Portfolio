@@ -4,53 +4,80 @@ import { projects, type Project } from "@/data/site";
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <li className="group rounded-lg ring-card transition-shadow hover:ring-card-hover">
-      <a
-        href={project.href ?? project.repo ?? "#"}
-        target={project.href || project.repo ? "_blank" : undefined}
-        rel="noreferrer noopener"
-        className="block h-full"
-      >
-        {project.image ? (
-          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-lg border-b border-line">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              sizes="(max-width: 640px) 100vw, 896px"
-              className="object-cover"
-            />
-          </div>
-        ) : null}
-        <div className="p-5">
-          <div className="flex items-baseline justify-between gap-3">
-            <h3 className="text-lg font-semibold tracking-[-0.96px]">
-              {project.title}
-            </h3>
-            {project.year ? (
-              <span className="font-mono text-xs text-subtle">{project.year}</span>
-            ) : null}
-          </div>
-          <p className="mt-2 text-sm leading-relaxed text-muted">
-            {project.description}
-          </p>
-          <ul className="mt-4 flex flex-wrap gap-1.5">
-            {project.tags.map((tag) => (
-              <li
-                key={tag}
-                className="rounded-full bg-surface px-2.5 py-0.5 text-xs text-muted ring-card"
+    <li className="flex flex-col rounded-lg ring-card transition-shadow hover:ring-card-hover">
+      {project.image ? (
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-t-lg border-b border-line">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            sizes="(max-width: 640px) 100vw, 896px"
+            className="object-cover"
+          />
+        </div>
+      ) : null}
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+          <h3 className="text-lg font-semibold tracking-[-0.96px]">
+            {project.href ? (
+              <a
+                href={project.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="transition-colors hover:underline"
               >
-                {tag}
-              </li>
-            ))}
-          </ul>
-          {project.repo ? (
-            <p className="mt-4 font-mono text-xs text-subtle">
-              View source →
-            </p>
+                {project.title}
+              </a>
+            ) : (
+              project.title
+            )}
+          </h3>
+          {project.period ? (
+            <span className="font-mono text-xs whitespace-nowrap text-subtle">
+              {project.period}
+            </span>
+          ) : project.year ? (
+            <span className="font-mono text-xs text-subtle">{project.year}</span>
           ) : null}
         </div>
-      </a>
+        <p className="mt-2 text-sm leading-relaxed text-muted">
+          {project.description}
+        </p>
+        <ul className="mt-4 flex flex-wrap gap-1.5">
+          {project.tags.map((tag) => (
+            <li
+              key={tag}
+              className="rounded-full bg-surface px-2.5 py-0.5 text-xs text-muted ring-card"
+            >
+              {tag}
+            </li>
+          ))}
+        </ul>
+        {project.href || project.repo ? (
+          <div className="mt-5 flex flex-wrap gap-x-4 gap-y-1 pt-1 font-mono text-xs">
+            {project.href ? (
+              <a
+                href={project.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-muted transition-colors hover:text-foreground"
+              >
+                Live site ↗
+              </a>
+            ) : null}
+            {project.repo ? (
+              <a
+                href={project.repo}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-muted transition-colors hover:text-foreground"
+              >
+                Source ↗
+              </a>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
     </li>
   );
 }
@@ -68,7 +95,7 @@ export function Work() {
           ))}
         </ul>
       ) : null}
-      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid gap-4 sm:grid-cols-2">
         {rest.map((p) => (
           <ProjectCard key={p.title} project={p} />
         ))}
